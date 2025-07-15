@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: FluidNC API
+  version: 1.0.0
+  description: API for controlling and managing FluidNC firmware via HTTP.
+servers:
+  - url: http://{host}/
+    variables:
+      host:
+        default: 192.168.0.1
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      description: Serves the main web interface or status.
+      responses:
+        '200':
+          description: OK
+  /login:
+    post:
+      summary: Login
+      description: Authenticates a user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+  /command:
+    post:
+      summary: Send command
+      description: Sends a command (e.g., G-code) to the controller.
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Command accepted
+  /command_silent:
+    post:
+      summary: Send command silently
+      description: Sends a command without verbose output.
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: Command accepted
+  /feedhold_reload:
+    post:
+      summary: Feed hold
+      description: Pauses the current operation.
+      responses:
+        '200':
+          description: Feed hold triggered
+  /cyclestart_reload:
+    post:
+      summary: Cycle start
+      description: Resumes the current operation.
+      responses:
+        '200':
+          description: Cycle start triggered
+  /restart_reload:
+    post:
+      summary: Restart
+      description: Restarts the controller.
+      responses:
+        '200':
+          description: Restart triggered
+  /did_restart:
+    get:
+      summary: Check restart
+      description: Checks if a restart has occurred.
+      responses:
+        '200':
+          description: Status returned
+  /files:
+    get:
+      summary: List files
+      description: Lists files on the local filesystem.
+      responses:
+        '200':
+          description: List of files
+    post:
+      summary: Upload file
+      description: Uploads a file to the local filesystem.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded
+  /upload:
+    post:
+      summary: Upload file to SD
+      description: Uploads a file directly to the SD card.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded
+  /updatefw:
+    post:
+      summary: Firmware update
+      description: Uploads a firmware file for update.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Firmware update started
+  /generate_204:
+    get:
+      summary: Connectivity check
+      description: Used for captive portal detection.
+      responses:
+        '204':
+          description: No content
+  /gconnectivitycheck.gstatic.com:
+    get:
+      summary: Connectivity check
+      description: Used for captive portal detection.
+      responses:
+        '204':
+          description: No content
+  /fwlink/:
+    get:
+      summary: Connectivity check
+      description: Used for captive portal detection.
+      responses:
+        '204':
+          description: No content
+  /description.xml:
+    get:
+      summary: SSDP/UPnP device discovery
+      description: Returns device description for network discovery.
+      responses:
+        '200':
+          description: Device description XML
+

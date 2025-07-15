@@ -1,0 +1,26 @@
+# FluidNC CLI Configuration File
+# Copy this to ~/.fluidnc-cli/fluidnc-cli.yaml or use environment variables
+
+# FluidNC device connection settings
+host: "fluidnc.local"            # FluidNC IP address
+port: 80                       # HTTP port
+websocket_port: 81             # WebSocket port for real-time communication
+
+# Communication settings
+timeout: "30s"                 # HTTP request timeout
+retry_attempts: 3              # Number of retry attempts for failed requests
+retry_delay: "1s"              # Delay between retry attempts
+
+# Monitoring settings
+status_interval: "1s"          # How often to poll status in monitoring mode
+command_delay: "100ms"         # Delay between G-code commands when running files
+
+# Output settings
+output_format: "text"          # Output format: "text" or "json"
+verbose: false                 # Enable verbose logging
+
+# Environment variable examples:
+# FLUIDNC_HOST=192.168.1.100
+# FLUIDNC_PORT=80
+# FLUIDNC_WEBSOCKET_PORT=81
+# FLUIDNC_VERBOSE=true
