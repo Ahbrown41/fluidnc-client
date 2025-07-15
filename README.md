@@ -1,18 +1,21 @@
-## G-Code Streaming
+# FluidNC CLI Tool
 
-### Basic Streaming
+A command-line tool for interacting with the FluidNC Web API, supporting file uploads, WebSocket commands, and interactive sessions.
 
-Stream a G-code file with real-time progress monitoring:
+## Features
+
+- **File Upload**: Upload files to FluidNC flash storage or SD card
+- **WebSocket Commands**: Send individual commands or start interactive sessions
+- **Flexible Configuration**: YAML config files, environment variables, and CLI flags
+- **Multiple Output Formats**: Text and JSON output options
+- **Cross-Platform**: Builds for Linux, Windows, and macOS
+
+## Installation
+
+### From Source
 
 ```bash
-# Stream with default settings
-fluidnc-cli stream job.gcode
-
-# Stream with verbose output
-fluidnc-cli --verbose stream job.gcode
-
-# Continue on errors
-fluidnc-cli stream --continue-on-error job.gcode
-
-# JSON status output
-fluidnc-cli --output json stream job.gcode
+git clone https://github.com/Ahbrown41/fluidnc-client
+cd fluidnc-client
+make build (go build -o build/fluidnc-cli .)
+```
